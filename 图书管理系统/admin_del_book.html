@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		
+	</head>
+
+	<body>
+		<script src="js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/DataBase.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/admin_op.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+		</script>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav">
+				<h1 class="mui-title">删除书籍</h1>
+			</header>
+			
+			<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+				
+			<label>删除信息:</label>
+			<input type="text" name="" id="delNews" value=""  placeholder="请输入要删除的信息编号"/>
+			<input type="button" name="" id="delnewsBtn" value="删除信息" style="background-color: red;" />
+			<p></p>
+			<label>输入要删除的书籍:</label>
+			<input type="text" name="" id="delBook" value="" placeholder="请输入要删除的书籍ID"/>
+			<input type="button" name="" id="delbookBtn" value="删除书籍" style="background-color: red;"/>
+			<p></p>
+			<label>输入要删除的用户:</label>
+			<input type="text" name="" id="delUser" value="" placeholder="请输入要删除的用户ID"/>
+			<input type="button" name="" id="deluserBtn" value="删除用户" style="background-color: red;"/>
+				
+			</div>
+		</div>
+		
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" onclick="addnews()">
+				<span class="mui-icon mui-icon-plusempty"></span>
+				<span class="mui-tab-label">添加消息</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="addbook()">
+				<span class="mui-icon mui-icon-compose"></span>
+				<span class="mui-tab-label">添加图书</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="delbook()">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">删除图书</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="admincenter()">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">管理员中心</span>
+			</a>
+		</nav>
+		
+		<script type="text/javascript">
+		$(function() {
+			var db = openDatabase('SchoolBook', '1.0', 'schoolbook', 1024 * 100);
+			createTable(db);
+			
+				$("#delnewsBtn").click(function() {
+					var delNews=$("#delNews").val();
+					
+					db.transaction(function(tx) {
+						tx.executeSql('select * from lib_msg where newid=? ',[delNews],function(tx,res){
+							if(res.rows.length!=0){
+								tx.executeSql('delete from lib_msg where newid=?', [delNews], function(tx, rs) {
+									alert("成功删除通告！！");
+								}, function(tx, err) {
+									alert("失败");
+								})
+							}else {alert("查无此通告！");}
+						})
+					})
+				});
+				$("#delbookBtn").click(function() {
+					var delBook=$('#delBook').val();
+					
+					db.transaction(function(tx) {
+						tx.executeSql('select * from book where bookid=? ',[delBook],function(tx,res){
+							if(res.rows.length!=0){
+								tx.executeSql('delete from book where bookid=?', [delBook], function(tx, rs) {
+									alert("成功删除书籍！！");
+								}, function(tx, err) {
+									alert("失败");
+								})
+							}else {alert("查无此书籍id！");}
+						})	
+					})
+				});
+				$("#deluserBtn").click(function() {
+					var delUser=$('#delUser').val();
+					
+					db.transaction(function(tx) {
+						tx.executeSql('select * from users where username=? ',[delUser],function(tx,res){
+							if(res.rows.length!=0){
+								tx.executeSql('delete from users where username=?', [delUser], function(tx, rs) {
+									alert("成功注销用户！");
+								}, function(tx, err) {
+									alert("失败");
+								})
+							}else {alert("查无此用户！");}
+						})
+							
+						
+					})
+				});
+			})
+				
+		</script>
+	</body>
+
+</html>

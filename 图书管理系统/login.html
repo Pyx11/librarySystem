@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/DataBase.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<script src="js/mui.js"></script>
+		<script src="js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">注册</h1>
+
+		</header>
+		<div class="mui-content">
+			<div id="input_example" class="mui-input-group" style="margin-top: 30px;">
+
+				<div class="mui-input-row">
+					<label>用户名：</label>
+					<input id="username" type="text" class="mui-input-clear" placeholder="请输入用户名" autofocus>
+				</div>
+				<div class="mui-input-row">
+					<label>密码：</label>
+					<input id="password" type="password" class="mui-input-clear mui-input-password" placeholder="请输入密码">
+				</div>
+				<div class="mui-input-row">
+					<label>密码：</label>
+					<input id="AGpassword" type="password" class="mui-input-clear mui-input-password"
+						placeholder="请确认密码">
+				</div>
+				<div class="mui-input-row">
+					<label>号码：</label>
+					<input id="tel" type="number" class="mui-input-clear " placeholder="请输入电话号码">
+				</div>
+				<div class="mui-input-row">
+					<label>邮箱：</label>
+					<input id="email" type="email" class="mui-input-clear" placeholder="请输入邮箱">
+				</div>
+
+				<div class="mui-input-row">
+					<label>图片：</label>
+					<input id="pic" type="text" class="mui-input-clear " placeholder="输入图片文件名称">
+				</div>
+
+			</div>
+			<div class="mui-content-padded" style="margin-top:30px" align="center">
+				<button type="submit" data-loading-text="注册中" class="mui-btn mui-btn-primary"
+					style="width:80%;height: 40px;" onclick="testform()" id="login">注册</button>
+
+			</div>
+		</div>
+		<script type="text/javascript" charset="utf-8">
+			var name1 = document.getElementById('username');
+			var password = document.getElementById("password");
+			var Agpassword = document.getElementById("AGpassword");
+			var tel = document.getElementById("tel");
+			var email = document.getElementById('email');
+			var pic = document.getElementById("pic");
+			var db = openDatabase('SchoolBook', '1.0', 'schoolbook', 1024 * 100);
+			//db.createTable(db);
+
+			function testform() {
+				if (name1.value == '') {
+					alert('请输入用户名！');
+					return false;
+				} else if (password.value == '') {
+					alert('请输入密码！');
+					return false;
+				} else if (Agpassword.value == '') {
+					alert('请确认密码！');
+					return false;
+				} else if (tel.value == '') {
+					alert('请输入电话！');
+					return false;
+				} else if (email.value == '') {
+					alert('请输入email！');
+					return false;
+				} else if (!email.checkValidity()) {
+					alert('email的格式不正确！');
+					return false;
+				} else if (password.value != Agpassword.value) {
+					alert('两次输入密码不同，请重新输入！');
+					return false;
+				} else if (pic.value == "") {
+					alert('两次输入密码不同，请重新输入！');
+					return false;
+				} else {
+					insertUser(db, name1.value, password.value, tel.value, email.value, pic.value);
+				}
+			}
+		</script>
+	</body>
+
+</html>

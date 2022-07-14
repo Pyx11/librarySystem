@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/DataBase.js" type="text/javascript" charset="utf-8"></script>
+		<!-- <script src="js/index_op.js" type="text/javascript" charset="utf-8"></script> -->
+
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 class="mui-title">欢迎登录</h1>
+		</header>
+		<div class="mui-content">
+			<div id="input_example" class="mui-input-group" style="margin-top: 30px;">
+				<div class="mui-input-row">
+					<label>用户名：</label>
+					<input id="username" type="text" class="mui-input-clear" placeholder="请输入用户名" autofocus>
+				</div>
+				<div class="mui-input-row">
+					<label>密码：</label>
+					<input id="password" type="password" class="mui-input-clear mui-input-password" placeholder="请输入密码">
+				</div>
+				<div class="mui-input-row">
+					<label>选择类别</label>
+					<select id="type" class="mui-h5" style="margin:auto; color:#000;">
+						<option value="1">用户</option>
+						<option value="2">管理员</option>
+					</select>
+				</div>
+
+			</div>
+			<div class="mui-content-padded" style="margin-top:30px" align="center">
+				<button type="button" data-loading-text="登录中" class="mui-btn mui-btn-primary"
+					style="width:40%;height: 40px;" id="btn1">登录</button>
+				<!--<button type="button" class="mui-btn mui-btn-danger" >取消</button>-->
+				<!-- <button type="button" class="mui-btn mui-btn-blue" id="login">登陆</button> -->
+				<button type="button" class="mui-btn mui-btn-green" style="width:40%;height: 40px;"
+					id="btn2">注册</button>
+			</div>
+		</div>
+		
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" onclick="allview()">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="myview()">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">登录</span>
+			</a>
+		</nav>
+		
+		<script type="text/javascript">
+			document.getElementById("btn2").addEventListener("tap", function() {
+				mui.openWindow({
+					url: "login.html",
+					id: "login"
+				});
+			});
+			
+			
+			$(function() {
+				var db = openDatabase('SchoolBook', '1.0', 'schoolbook', 1024 * 100)
+				//createTable(db);
+				//insertdata(db);
+				//insertZiDuan(db);
+				
+				document.getElementById("btn1").addEventListener("tap", function() {
+					name = $("#username").val();
+					pwd = $("#password").val();
+					
+					var $selected = $("#type option").filter(":selected");
+					types = $selected.text();
+					
+					checkAdmin(db, name, pwd, types);
+				});
+				
+				// $("#btn1").click(function() {
+					
+				
+				// });
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		
+		<!-- <script src="js/index_op.js" type="text/javascript" charset="utf-8"></script> -->
+	</head>
+
+	<body>
+		<script src="js/mui.js"></script>
+		<script src="js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/DataBase.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 class="mui-title">图书馆近况</h1>
+		</header>
+		<div class="mui-content" id="new_show" style="margin-bottom:80px ;">
+			
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" onclick="all_msg()">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">书馆近况</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="search_book()">
+				<span class="mui-icon mui-icon-search"></span>
+				<span class="mui-tab-label">搜索书籍</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="getBook()">
+				<span class="mui-icon mui-icon-plus"></span>
+				<span class="mui-tab-label">借阅书籍</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="myCenter()">
+				<span class="mui-icon mui-icon-person"></span>
+				<span class="mui-tab-label">个人中心</span>
+			</a>
+		</nav>
+		<script type="text/javascript">
+			$(function(){
+				var db = openDatabase('SchoolBook', '1.0', 'schoolbook', 1024 * 100);
+				//createTable(db);
+				show_new(db);
+				});
+		</script>
+		
+	</body>
+
+</html>

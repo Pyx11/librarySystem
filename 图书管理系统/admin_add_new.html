@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		
+	</head>
+
+	<body>
+		<script src="js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/DataBase.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/admin_op.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.js"></script>
+		<!-- <script src="js/index_op.js" type="text/javascript" charset="utf-8"></script> -->
+		<script type="text/javascript">
+			mui.init()
+			
+		</script>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav">
+				<h1 class="mui-title">添加图书馆信息</h1>
+			</header>
+			<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+				<label>信息编号：</label>
+				<input type="text" name="" id="msgid" value="" placeholder="请输入信息编号"/>
+				<label>信息标题：</label>
+				<input type="text" name="" id="msgTil" value="" placeholder="输入标题"/>
+				<label>信息时间：</label>
+				<input type="text" name="" id="daytime" value="" />
+				<label>图片路径：</label>
+				<input type="text" name="" id="imgaddress" value="" />
+				<label>消息详情：</label>
+				<input type="text" name="" id="msgall" value="" style="width:100%;height: 200px;"/>
+				<input type="button" name="" id="msgsure" value="确认添加信息" />
+			</div>
+		</div>
+		
+		
+		
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" onclick="addnews()">
+				<span class="mui-icon mui-icon-plusempty"></span>
+				<span class="mui-tab-label">添加消息</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="addbook()">
+				<span class="mui-icon mui-icon-compose"></span>
+				<span class="mui-tab-label">添加图书</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="delbook()">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">删除图书</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="admincenter()">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">管理员中心</span>
+			</a>
+		</nav>
+		<script type="text/javascript">
+		$(function() {
+			//var db = openDatabase('SchoolBook', '1.0', 'schoolbook', 1024 * 100);
+			//createTable(db);
+		
+			$("#msgsure").click(function() {
+				var db = openDatabase('SchoolBook', '1.0', 'schoolbook', 1024 * 100)
+				var msgid=$("#msgid").val();
+				var msgTil=$("#msgTil").val();
+				var daytime=$("#daytime").val();
+				var imgaddress=$("#imgaddress").val();
+				var msgall=$("#msgall").val();
+				
+				db.transaction(function(tx){
+					tx.executeSql('select * from lib_msg where newid=?',[msgid],function(tx,rs){
+						if(rs.rows.length!=0){alert("已经存在此条通告编号，请更改");}
+						else{
+							tx.executeSql('insert into lib_msg values(?,?,?,?,?)',[msgid,msgTil,daytime,imgaddress,msgall], function(tx, rs) {
+								alert("消息插入成功！");
+							},function(tx, err) {
+								alert("失败");})
+						}
+					})
+				})
+			})
+		});
+			
+		</script>
+	</body>
+
+</html>

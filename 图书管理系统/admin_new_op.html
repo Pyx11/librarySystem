@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		
+	</head>
+
+	<body>
+		<script src="js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/DataBase.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/admin_op.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var data = self.username;
+				//localStorage.setItem("name", data);
+				var str="管理员 "+data;
+				$("#admin_name").html(str);
+				
+				$('#ad_logout').click(function() {
+					mui.openWindow({
+						url: "my_load.html",
+						id: "logout",
+					})
+				});
+				
+			});
+		</script>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav">
+				<h1 class="mui-title">管理员中心</h1>
+			</header>
+			<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll" id="admin_name" style="text-align: center;font-size: 30px;margin-top: 30px;">
+					
+				</div>
+				<div style="margin-top: 100px;">
+					<input type="button" name="" id="ad_logout" value="退出" style="width: 100%;background-color: orangered;"/>
+				</div>
+			</div>
+		</div>
+		
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" onclick="addnews()">
+				<span class="mui-icon mui-icon-plusempty"></span>
+				<span class="mui-tab-label">添加消息</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="addbook()">
+				<span class="mui-icon mui-icon-compose"></span>
+				<span class="mui-tab-label">添加图书</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="delbook()">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">删除图书</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="admincenter()">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">管理员中心</span>
+			</a>
+		</nav>
+	</body>
+
+</html>

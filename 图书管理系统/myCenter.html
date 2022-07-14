@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/DataBase.js" type="text/javascript" charset="utf-8"></script>
+		<!-- <script src="js/index_op.js" type="text/javascript" charset="utf-8"></script> -->
+	</head>
+
+	<body>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var data = self.username;
+				//localStorage.setItem("name",data)
+				$(function() {
+					var db = openDatabase('SchoolBook', '1.0', 'schoolbook', 1024 * 100)
+					show_photo(db, data);
+					
+					$("#borrow_book").click(function() {
+						mui.openWindow({
+							url: "borrow_return_book.html",
+							id: "return",
+							extras: {
+								username:data
+							}
+						})
+					});
+					$('#change_pwd').click(function() {
+						mui.openWindow({
+							url: "change_pwd.html",
+							id: "c_pwd",
+							extras: {
+								username: data
+							}
+						})
+					});
+					$('#logout').click(function() {
+						localStorage.setItem("name","");
+						mui.openWindow({
+							url: "my_load.html",
+							id: "logout",
+						})
+					});
+				
+				})
+			});
+		</script>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav">
+				<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+				<h1 class="mui-title">个人中心</h1>
+			</header>
+
+			<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+				<div id="test1" style="width: 100%;height: 120px;background-color: #CCCCCC;">
+
+					<!-- <img src="imgs/c_2.jpg"
+						style="border-radius: 100px;width: 80px;height: 80px;display: block;margin: 0 auto;">
+					<p style="text-align: center;margin-top: 15px; ;">user1</p> -->
+
+				</div>
+				<div class="mui-scroll">
+					<input type="button" name="" id="borrow_book" value="已借书籍" style="width: 100%;margin-top:5px;" />
+					<input type="button" name="" id="change_pwd" value="修改密码" style="width: 100%;margin-top: 2px;" />
+					<input type="button" name="" value="退出账户"
+						style="width: 100%;margin-top: 2px;background-color: orangered;" id="logout" />
+
+				</div>
+			</div>
+		</div>
+
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" onclick="all_msg()">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">书馆近况</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="search_book()">
+				<span class="mui-icon mui-icon-search"></span>
+				<span class="mui-tab-label">搜索书籍</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="getBook()">
+				<span class="mui-icon mui-icon-plus"></span>
+				<span class="mui-tab-label">借阅书籍</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="myCenter()">
+				<span class="mui-icon mui-icon-person"></span>
+				<span class="mui-tab-label">个人中心</span>
+			</a>
+		</nav>
+		<script type="text/javascript">
+			
+		</script>
+	</body>
+
+</html>

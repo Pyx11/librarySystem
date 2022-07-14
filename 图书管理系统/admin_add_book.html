@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		
+	</head>
+
+	<body>
+		<script src="js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/DataBase.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/admin_op.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			(function($){
+			        $(".mui-scroll-wrapper").scroll({
+			              bounce: false,//滚动条是否有弹力默认是true
+			              indicators: false, //是否显示滚动条,默认是true
+			        });        
+			    })(mui);
+		</script>
+		<div class="mui-content">
+			<header class="mui-bar mui-bar-nav">
+				<h1 class="mui-title">添加书籍</h1>
+			</header>
+			<div id="refreshContainer" class="mui-scroll-wrapper" style="margin-top: 50px;">
+				<div class="mui-scroll" >
+					<label>书籍id：</label>
+					<input type="text" name="" id="bookid" value="" placeholder="请输入书籍id" />
+					<label>请输入书籍名：</label>
+					<input type="text" name="" id="bookname" value="" placeholder="请输入书籍名" />
+					<label>请输入类别：</label>
+					<input type="text" name="" id="booktype" value="" placeholder="请输入书籍类别"/>
+					<label>请输入作者：</label>
+					<input type="text" name="" id="bookauthor" value="" placeholder="请输入作者" />
+					<label>请输入入库书籍数量：</label>
+					<input type="text" name="" id="booknumber" value="" placeholder="请输入入库数量" />
+					<label>书籍图片路径：</label>
+					<input type="text" name="" id="bookimg" value="" placeholder="图片路径" />
+					<label>书本详情：</label>
+					<input type="text" name="" id="dateil" value="" placeholder="输入书籍详情" style="height: 100px;"/>
+					<input type="button" name="" id="addbook" value="确认添加" />
+				</div>
+			</div>
+		</div>
+		
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" onclick="addnews()">
+				<span class="mui-icon mui-icon-plusempty"></span>
+				<span class="mui-tab-label">添加消息</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="addbook()">
+				<span class="mui-icon mui-icon-compose"></span>
+				<span class="mui-tab-label">添加图书</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="delbook()">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">删除图书</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="admincenter()">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">管理员中心</span>
+			</a>
+		</nav>
+		
+		<script type="text/javascript">
+			$(function() {
+				var db = openDatabase('SchoolBook', '1.0', 'schoolbook', 1024 * 100)
+				
+				
+				$("#addbook").click(function() {
+				var bookid=$("#bookid").val();
+				var bookname=$('#bookname').val();
+				var booktype=$('#booktype').val();
+				var bookauthor=$('#bookauthor').val();
+				var booknumber=$('#booknumber').val();
+				var bookimg=$('#bookimg').val();
+				var dateil=$('#dateil').val();
+					
+				// insertBooks(db,bookid,bookname,booktype,bookauthor,booknumber,bookimg,dateil);
+				if(bookid==''){alert("书籍id不能为空！！");}
+				else if(bookname==''){alert("书籍名称不能为空！！");}
+				else if(booktype==''){alert('书籍类型不能为空！');}
+				else if (bookauthor==''){alert("书籍作者不能为空！！");}
+				else if (booknumber==''){alert("入库数量不能为空！！");}
+				else if(bookimg==''){alert("书籍详情不能为空！！");}
+				else{
+					db.transaction(function(tx){
+						tx.executeSql('select * from book where bookname=? or bookid=?',[bookname,bookid],function(tx,rs){
+							if(rs.rows.length!=0){alert("已经存在此书籍或者书籍Id重复");}
+							else{
+								tx.executeSql('insert into book values(?,?,?,?,?,?,?)',[bookid,bookname,booktype,bookauthor,booknumber,bookimg,dateil],function(tx,res){alert("插入图书成功！");},
+								function(tx,err){alert("失败");})
+							}
+						})
+					})
+					
+				}
+			})
+		});
+			
+		</script>
+	</body>
+
+</html>

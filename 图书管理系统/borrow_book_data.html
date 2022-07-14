@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/DataBase.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function () {
+			    var self = plus.webview.currentWebview();
+				var bookID=self.bookid;
+				//localStorage.setItem("id",bookID)
+				// function show_msg(db)
+				$(function(){
+					var db = openDatabase('SchoolBook', '1.0', 'schoolbook', 1024 * 100);
+					//createTable(db);
+					sel_all_data(db,bookID);
+					//localStorage.setItem("id","");
+					
+					$("#borrow_book_btn").click(function() {
+						var borrow_username=document.getElementById("borrow_username").value;
+						var borrow_userpwd=document.getElementById("borrow_password").value;
+						var bookid=bookID;
+						borrow_book(db,bookid,borrow_username,borrow_userpwd);
+					});
+				});
+			});
+			
+			
+			
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">详情</h1>
+		</header>
+		<div id="all_data" style="margin-top: 50px;">
+			
+		</div>
+		<div id="" style="margin:0 auto;width:250px;">
+			<label>账号：</label><input type="text" name="" id="borrow_username" value="" />
+			<label>密码：</label><input type="text" name="" id="borrow_password" value="" />
+		<input type="button" name="" id="borrow_book_btn" value="借阅" style="width: 50%;"/>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/DataBase.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/index_op.js" type="text/javascript" charset="utf-8"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function () {
+			    var self = plus.webview.currentWebview();
+				var data=self.username;
+				// if(data){alert("你好用户"+data);}
+				// else{alert("没有取得值");}
+				alert("你好用户");
+				// $(function() {
+				// 	$("in_index").click(function() {
+				// 		in_index(data);
+				// 	});
+				// 	$("search_book").click(function() {
+				// 		search_book(data);
+				// 	});
+				// 	$("getBook").click(function() {
+				// 		getBook(data);
+				// 	});
+				// 	$("myCenter").click(function() {
+				// 		myCenter(data);
+				// 	});
+				});
+		</script>
+		
+	</body>
+
+</html>

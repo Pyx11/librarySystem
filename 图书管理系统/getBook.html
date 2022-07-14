@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/DataBase.js" type="text/javascript" charset="utf-8"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 class="mui-title">借阅书籍</h1>
+		</header>
+		<div class="mui-content">
+
+			<!-- <div id="refreshContainer" class="mui-content mui-scroll-wrapper"> -->
+
+			<div class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+
+					<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="imgs/n_3.jpg" /></a>
+					</div>
+					<div class="mui-slider-item"><a href="#"><img src="imgs/n_1.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="imgs/n_2.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="imgs/n_3.jpg" /></a></div>
+					<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="imgs/n_1.jpg" /></a>
+					</div>
+				</div>
+			</div>
+			<div class="mui-scroll">
+				<ul id="testUl" class="mui-table-view mui-table-view-chevron" style="margin-bottom:50px ;">
+
+				</ul>
+			</div>
+			<!-- </div> -->
+
+		</div>
+
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" onclick="all_msg()">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">图书馆信息</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="search_book()">
+				<span class="mui-icon mui-icon-search"></span>
+				<span class="mui-tab-label">搜索书籍</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="getBook()">
+				<span class="mui-icon mui-icon-plus"></span>
+				<span class="mui-tab-label">借阅书籍</span>
+			</a>
+			<a class="mui-tab-item mui-active" onclick="myCenter()">
+				<span class="mui-icon mui-icon-person"></span>
+				<span class="mui-tab-label">个人中心</span>
+			</a>
+		</nav>
+
+	</body>
+	<script type="text/javascript">
+		var gallery = mui('.mui-slider');
+		gallery.slider({
+			interval: 5000 //自动轮播周期，若为0则不自动播放，默认为0；
+		});
+
+		$(function() {
+			var db = openDatabase('SchoolBook', '1.0', 'schoolbook', 1024 * 100);
+			//createTable(db);
+			//insertdata(db);
+			//insertLibNews(db);
+			//insertZiDuan(db);
+			show_book_in(db);
+			//insertdata(db);
+			//db.close();
+		});
+		mui("ul").on('tap', 'li', function() {
+			var topId = this.getAttribute("id");
+			mui.openWindow({
+				url: "borrow_book_data.html",
+				id: "borrow_book",
+				extras: {
+					bookid: topId
+				}
+			})
+		});
+	</script>
+</html>
